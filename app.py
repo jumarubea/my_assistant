@@ -8,11 +8,11 @@ system_prompt = st.text_area("System Prompt", "You are a helpful assistant.")
 user_question = st.text_input("Your Question")
 
 if st.button("Send"):
-    response = requests.post("https://jumarubea-logbook-ai-gen.hf.space/", json={
-        "system_prompt": system_prompt,
-        "user_question": user_question
+    response = requests.post("https://jumarubea-logbook-ai-gen.hf.space/api/ai-generate", json={
+        "system_message": system_prompt,
+        "user_prompt": user_question
     })
     if response.status_code == 200:
-        st.success(response.json().get("response", "No response"))
+        st.success(response.json().get("generated_text", "No response"))
     else:
         st.error("API call failed.")
